@@ -26,7 +26,7 @@ public class UserController {
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	public String signUp(User user){
 		userService.addUser(user);
-		return "redirect:index";
+		return "redirect:";
 	}
 	
 	@RequestMapping(value = "/signin")
@@ -36,7 +36,8 @@ public class UserController {
 	
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)
 	public String signIn(User user){
+		System.out.println("user.getEmail():" + user.getEmail());
 		userService.addUser(user);
-		return "";
+		return "index";
 	}
 }
