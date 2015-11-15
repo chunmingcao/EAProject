@@ -15,10 +15,10 @@ public class UserService {
 	}
 	
 	public void addUser(User user){
-		userDao.addUser(user);
+		userDao.save(user);
 	}
 	
 	public User getUser(String email, String password){
-		return userDao.getUser(email, password);
+		return userDao.findByEmailAndPassword(email, password);
 	}
 }
