@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class User {
@@ -12,7 +15,11 @@ public class User {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@NotNull
+	@Email
 	private String email;
+	@NotNull
 	private String password;
 	@Transient
 	private String passwordConfirm;
