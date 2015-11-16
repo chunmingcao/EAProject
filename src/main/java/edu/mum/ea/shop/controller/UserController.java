@@ -1,7 +1,10 @@
 package edu.mum.ea.shop.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,30 +17,35 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping("/")
-	public String query(){
+	public String query(User user){
 		return "signin";
 	}
 	
 	@RequestMapping(value = "/signup")
-	public String signUp(){
-		return "redirect:signup";
+	public String signUpForm(User user){
+		return "signup";
 	}
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
-	public String signUp(User user){
+	public String signUp(@Valid User user, BindingResult result){
+		if(result.hasErrors()){
+			return "signup";
+		}
 		userService.addUser(user);
-		return "redirect:";
+		return "redirect:signin";
 	}
 	
 	@RequestMapping(value = "/signin")
-	public String signIn(){
-		return "redirect:signup";
+	public String signInForm(User user){
+		return "signin";
 	}	
 	
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)
 	public String signIn(User user){
-		System.out.println("user.getEmail():" + user.getEmail());
-		userService.addUser(user);
-		return "index";
+		user = userService.getUser(user.getEmail(),user.getPassword());
+		if(user!=null){
+			return "index";
+		}
+		return "signin";
 	}
 }
