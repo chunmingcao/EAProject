@@ -1,5 +1,7 @@
 package edu.mum.ea.shop.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,16 @@ public class ProductService {
 	private ProductDao productDao;
 	
 	
-	public void add(Product product){
+	public void save(Product product){
 		productDao.save(product);
+	}
+	
+	public Product get(int id){
+		return productDao.findOne(id);
+	}
+	
+	public List<Product> getAll(){
+		return productDao.findAll();
 	}
 	
 }
