@@ -17,7 +17,7 @@ public class Category {
 	@Id
 	@GeneratedValue
 	private int id;
-	//@NotBlank
+	@NotBlank
 	private String name;
 	@OneToMany(mappedBy="category")
 	private List<Product> products = new ArrayList<Product>();
