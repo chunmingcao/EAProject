@@ -13,7 +13,8 @@
 	<c:forEach var="category" items="${categories}">
 	<tr>
 		<td>${category.name}</td>
-		<td><a href="/admin/category/${category.id}">edit</a></td>
+		<td><a href="editcategory/${category.id}">edit</a></td>
+		<td><a href="deletecategory/${category.id}">delete</a></td>
 	</tr>
 	</c:forEach>
 	</table>

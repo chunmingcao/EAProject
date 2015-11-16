@@ -20,7 +20,25 @@ public class CategoryService {
 		return categoryDao.save(cate);
 	}
 	
+	@Transactional
+	public Category get(int id){
+		return categoryDao.findOne(id);
+	}
+	
+	@Transactional
 	public List<Category> getAll(){
 		return categoryDao.findAll();
 	}
+	
+	@Transactional
+	public void update(Category cate){
+		categoryDao.save(cate);
+	}
+	
+	@Transactional
+	public void delete(int id){
+		categoryDao.delete(id);
+	}
+	
+	
 }
