@@ -16,11 +16,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/")
-	public String query(User user){
-		return "signin";
-	}
-	
 	@RequestMapping(value = "/signup")
 	public String signUpForm(User user){
 		return "signup";
@@ -37,7 +32,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/signin")
 	public String signInForm(User user){
-		return "signin";
+		return "login";
 	}	
 	
 	@RequestMapping(value = "/signin", method=RequestMethod.POST)

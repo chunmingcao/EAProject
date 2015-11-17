@@ -21,13 +21,13 @@ public class CategoryController {
 
 	@RequestMapping(value="/admin/addcategory", method=RequestMethod.GET)
 	public String addCategory(@ModelAttribute("category") Category category){
-		return "addcategory";
+		return "admin/addcategory";
 	}
 
 	@RequestMapping(value="/admin/addcategory", method = RequestMethod.POST)
 	public String addCategory(@Validated Category category, BindingResult result){
 		if(result.hasErrors()){
-			return "addcategory";
+			return "admin/addcategory";
 		}
 		categoryService.add(category);
 		return "redirect:/admin/categories";
@@ -36,7 +36,7 @@ public class CategoryController {
 	@RequestMapping(value="/admin/editcategory/{id}", method = RequestMethod.GET)
 	public String editCategory(@PathVariable int id, Model model){
 		model.addAttribute("category", categoryService.get(id));
-		return "editcategory";
+		return "admin/editcategory";
 	}
 
 	@RequestMapping(value="/admin/editcategory/{id}", method = RequestMethod.POST)
@@ -54,6 +54,6 @@ public class CategoryController {
 	@RequestMapping(value="/admin/categories")
 	public String getCategories(Model model){
 		model.addAttribute("categories", categoryService.getAll());
-		return "categories";
+		return "admin/categories";
 	}
 }

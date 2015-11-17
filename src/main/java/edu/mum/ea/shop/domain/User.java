@@ -27,6 +27,7 @@ public class User {
 	private String lastName;
 	@Embedded
 	private Address shippingAddress;
+	private String role;
 	//@Embedded
 	//private Address billingAddress;
 	
