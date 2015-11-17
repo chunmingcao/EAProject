@@ -16,6 +16,7 @@
 		<td>${product.name}</td>
 		<td><a href="${contextPath}/admin/editproduct/${product.id}">edit</a></td>
 		<td><a href="${contextPath}/admin/deleteproduct/${product.id}">delete</a></td>
+		<td><a href="${contextPath}/product/${product.id}" target="_blank">preview</a></td>
 	</tr>
 	</c:forEach>
 	</table>

@@ -13,11 +13,13 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +50,9 @@ public class ProductController {
 
 	@RequestMapping(value="/admin/addproduct", method = RequestMethod.POST)
 	public String addProduct(@Validated Product product, BindingResult result, Model model){
+		if(product.getCategory().getId() == 0){
+			result.addError(new FieldError("product", "category.id", "Please select category"));
+		}
 		if(result.hasErrors()){
 			getCateMap(model);
 			return "admin/addproduct";
@@ -73,7 +78,10 @@ public class ProductController {
 
 	@RequestMapping(value="/admin/editproduct/{id}", method = RequestMethod.POST)
 	public String editProduct(@PathVariable int id, Model model, @Validated Product product, BindingResult result){
-	    if(result.hasErrors()){
+		if(product.getCategory().getId() == 0){
+			result.addError(new FieldError("product", "category.id", "Please select category"));
+		}
+		if(result.hasErrors()){
 	    	getCateMap(model);
 	    	return "admin/editproduct";
 	    }

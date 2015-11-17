@@ -21,10 +21,8 @@ public class Product {
 	@NotBlank
 	private String name;
 	@ManyToOne
-	@NotNull
 	private Category category;
 	@Transient
-	//@Valid
 	private MultipartFile pictureFile;
 	private String image;
 	@NotBlank

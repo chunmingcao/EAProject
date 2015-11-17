@@ -23,7 +23,7 @@
      			<form:options items="${cateMap}" />
      			</form:select>
 			</td>
-			<td><form:errors path="category" cssClass="error"/> </td>
+			<td><form:errors path="category.id" cssClass="error"/> </td>
 		</tr>
 		
 		<tr>

@@ -18,7 +18,7 @@
 		<tr>
 			<td>Category:</td>
 			<td><form:select path="category.id" items="${cateMap}"/> </td>
-			<td><form:errors path="category" cssClass="error"/> </td>
+			<td><form:errors path="category.id" cssClass="error"/> </td>
 		</tr>
 		<tr>
 			<td>Price:</td>
@@ -37,7 +37,16 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td cols="2"><image src="${contextPath}/${product.image}" width="200"/> </td>
+			<td cols="2">
+			<c:choose>
+			<c:when test="${product.image}!=''">
+				<image src="${contextPath}/${product.image}" width="200"/>
+			</c:when>
+			<c:otherwise>
+				No picture
+			</c:otherwise>
+			</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<td>Description:</td>
