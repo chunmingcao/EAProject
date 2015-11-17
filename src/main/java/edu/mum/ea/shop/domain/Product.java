@@ -4,6 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product {
@@ -11,12 +18,20 @@ public class Product {
 	@Id
 	@GeneratedValue
 	private int id;
+	@NotBlank
 	private String name;
 	@ManyToOne
+	@NotNull
 	private Category category;
+	@Transient
+	//@Valid
+	private MultipartFile pictureFile;
 	private String image;
+	@NotBlank
 	private String description;
+	@Min(0)
 	private double price;
+	@Min(0)
 	private int quantity;
 	
 	public Product() {
@@ -78,6 +93,13 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	public MultipartFile getPictureFile() {
+		return pictureFile;
+	}
+
+	public void setPictureFile(MultipartFile pictureFile) {
+		this.pictureFile = pictureFile;
+	}
 	
 }

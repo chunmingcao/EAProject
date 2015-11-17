@@ -19,8 +19,16 @@ public class ProductService {
 		productDao.save(product);
 	}
 	
+	public void delete(int id){
+		productDao.delete(id);
+	}
+	
 	public Product get(int id){
 		return productDao.findOne(id);
+	}
+	
+	public List<Product> getByCategoryId(int catId){
+		return productDao.findProductByCategoryId(catId);
 	}
 	
 	public List<Product> getAll(){

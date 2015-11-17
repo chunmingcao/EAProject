@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -9,6 +10,12 @@
 <title>Products</title>
 </head>
 <body>
+<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+LOGIN
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+ADD TO CART
+</sec:authorize>
 	<h1>Products</h1>
 	<table>
 	<c:forEach var="product" items="${products}">

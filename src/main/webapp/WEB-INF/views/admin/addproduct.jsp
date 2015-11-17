@@ -8,7 +8,7 @@
 <title>Add Product</title>
 </head>
 <body>
-	<form:form commandName="product" action="${contextPath}/admin/addproduct" method="post">
+	<form:form commandName="product" action="${contextPath}/admin/addproduct" enctype="multipart/form-data" method="post">
 	<table>
 		<tr>
 			<td>Name:</td>
@@ -18,7 +18,11 @@
 		
 		<tr>
 			<td>Category:</td>
-			<td><form:select path="category.id" items="${cateMap}"/> </td>
+			<td><form:select path="category.id">
+				<form:option value="0">&nbsp;</form:option>
+     			<form:options items="${cateMap}" />
+     			</form:select>
+			</td>
 			<td><form:errors path="category" cssClass="error"/> </td>
 		</tr>
 		
@@ -33,8 +37,13 @@
 			<td><form:errors path="quantity" cssClass="error"/> </td>
 		</tr>
 		<tr>
+			<td>Picture:</td>
+			<td><input type="file" name="pictureFile"> </td>
+			<td><!-- form:errors path="quantity" cssClass="error"/--> </td>
+		</tr>		
+		<tr>
 			<td>Description:</td>
-			<td><form:input  path="description"/> </td>
+			<td><form:textarea path="description" rows="20" cols="50"/> </td>
 			<td><form:errors path="description" cssClass="error"/> </td>
 		</tr>
 	</table>
