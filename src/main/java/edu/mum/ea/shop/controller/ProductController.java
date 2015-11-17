@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.mum.ea.shop.domain.Cart;
 import edu.mum.ea.shop.domain.Product;
 import edu.mum.ea.shop.domain.Category;
 import edu.mum.ea.shop.service.CategoryService;
@@ -44,6 +45,7 @@ public class ProductController {
 
 	@RequestMapping(value="/admin/addproduct", method = RequestMethod.POST)
 	public String addProduct(@Validated Product product, BindingResult result){
+		
 		if(result.hasErrors()){
 			return "admin/addproduct";
 		}
@@ -59,6 +61,7 @@ public class ProductController {
 
 	@RequestMapping(value="/admin/editproduct/{id}", method = RequestMethod.POST)
 	public String editProduct(@PathVariable int id, Product product){
+		
 		productService.save(product);
 		return "redirect:/admin/products";
 	}
@@ -72,11 +75,12 @@ public class ProductController {
             if ("ROLE_ADMIN".equals(auth.getAuthority()))
                 return "admin/products";
         }
+		
 		return "products";
 	}
 	
 	@RequestMapping(value="/product/{id}", method = RequestMethod.GET)
-	public String getProduct(@PathVariable int id, Model model){
+	public String getProduct(@ModelAttribute("cart") Cart cart,@PathVariable int id, Model model){
 		model.addAttribute("product", productService.get(id));
 		return "product";
 	}
