@@ -9,4 +9,6 @@ import edu.mum.ea.shop.domain.User;
 public interface UserDao extends JpaRepository<User, Integer>{
 	public User findByEmailAndPassword(String email, String password);
 
+	public User findByEmail(String email);
+
 }

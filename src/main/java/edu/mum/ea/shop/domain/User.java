@@ -1,5 +1,7 @@
 package edu.mum.ea.shop.domain;
 
+import java.util.Collection;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -31,9 +33,6 @@ public class User {
 	//@Embedded
 	//private Address billingAddress;
 	
-	public User(){
-	}
-
 	public int getId() {
 		return id;
 	}
