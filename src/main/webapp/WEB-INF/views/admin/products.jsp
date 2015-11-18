@@ -1,26 +1,53 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml11.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Products</title>
-</head>
-<body>
-	<h1>Products</h1>
-	<table>
-	<c:forEach var="product" items="${products}">
-	<tr>
-		<td>${product.name}</td>
-		<td><a href="${contextPath}/admin/editproduct/${product.id}">edit</a></td>
-		<td><a href="${contextPath}/admin/deleteproduct/${product.id}">delete</a></td>
-		<td><a href="${contextPath}/product/${product.id}" target="_blank">preview</a></td>
-	</tr>
-	</c:forEach>
-	</table>
-	
-	<a href="addproduct"> Add a Product</a>
-</body>
-</html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<t:genericpage>
+	<jsp:attribute name="title">Add Category</jsp:attribute>
+	<jsp:body>
+    <div class="jumbotron">
+    <div class="panel panel-primary">
+			<div class="panel-heading">
+						<h3 class="panel-title">Products</h3>
+						<span class="pull-right"><a href="addproduct"> Add a Product</a></span>
+					</div>
+					<div class="panel-body">
+					<table class="table table-striped table-hover table-bordered">
+				        <tbody>
+				            <tr>
+				                <th>Name</th>
+				                <th>Price</th>
+				                <th>QTY Left</th>
+				                <th></th>
+				                <th></th>
+				            </tr>
+				            <c:forEach var="product" items="${products}">
+				            
+							<tr>
+				                <td>${product.name}</td>
+				                <td>${product.price}</td>
+								<td>${product.quantity}</td>
+													<td></td>
+				                <td class="col-sm-1 col-md-1"> 
+					                 <a href="${contextPath}/admin/editproduct/${product.id}">
+					                 <button type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-edit">
+					                Edit</span></button></a> 
+								</td>
+								<td class="col-sm-1 col-md-1"> 
+					                <a href="${contextPath}/admin/deleteproduct/${product.id}">
+					                 <button type="button" class="btn btn-danger"> <span
+																	class="glyphicon glyphicon-remove">
+					                Remove</span>
+															</button>
+													</a> 
+								</td>
+				            </tr>
+							</c:forEach>
+				        </tbody>
+				    </table>
+					</div>
+				</div>
+		</div>
+    </jsp:body>
+</t:genericpage>

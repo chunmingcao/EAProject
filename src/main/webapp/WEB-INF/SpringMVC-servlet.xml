@@ -49,7 +49,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/fairstore" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="yipl123" />
 	</bean>
 	
 	<!-- Hibernate session factory -->

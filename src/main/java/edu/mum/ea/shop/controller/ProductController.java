@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.mum.ea.shop.domain.Cart;
 import edu.mum.ea.shop.domain.Product;
 import edu.mum.ea.shop.domain.Category;
 import edu.mum.ea.shop.service.CategoryService;
@@ -132,7 +133,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/product/{id}", method = RequestMethod.GET)
-	public String getProductBy(@PathVariable int id, Model model){
+	public String getProductBy(@ModelAttribute("cart") Cart cart,@PathVariable int id, Model model){
 		model.addAttribute("product", productService.get(id));
 		return "product";
 	}
