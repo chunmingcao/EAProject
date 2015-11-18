@@ -1,6 +1,7 @@
 package edu.mum.ea.shop.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -16,7 +17,7 @@ public class Cart {
 	@OneToOne
 	private User user;
 	
-	@OneToOne
+	@OneToOne//(fetch=FetchType.EAGER)
 	private Product product;
 	
 	private int quantity;

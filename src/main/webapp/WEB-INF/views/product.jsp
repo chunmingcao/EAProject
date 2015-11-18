@@ -7,10 +7,11 @@
 	<jsp:attribute name="title">Sign Up</jsp:attribute>
 	<jsp:body>
     <div class="jumbotron">
-        <h1>${product.name}</h1>
-		<p>${product.category.name}</p>
+        <p><image src="${contextPath}/${product.image}" width="200"/></p>
+		<h1>${product.name}</h1>
+		<p>Category: <a href="${contextPath}/product/category/${product.category.id}">${product.category.name}</a></p>
 		<p>${product.description}</p>
-		<p>${product.price}</p>
+		<p>Price:${product.price}</p>
 		<form:form commandName="cart" action="${contextPath}/cart/addProduct">
 		
 		<table>

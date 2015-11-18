@@ -5,92 +5,78 @@
 	<jsp:attribute name="title">Sign Up</jsp:attribute>
 	<jsp:body>
     <div class="jumbotron">
-        <form:form method="POST" commandName="user"
-				class="form-horizontal">
-  <fieldset>
-    <div id="legend">
-      <legend class="">Sign Up</legend>
-    </div>
- 	<div class="control-group">
-		<h3>Basic Info</h3>
-	</div>
-    <div class="control-group">
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-      <form:input path="email" value="${user.getEmail()}" name="email"
-								placeholder="" class="input-xlarge" />
-      </div>
-      <p>
-							<form:errors path="email" cssClass="error" />
-						</p>
-    </div>
-    
-    <div class="control-group">
-      <label class="control-label" for="firstName">First Name</label>
-      <div class="controls">
-      <form:input path="firstName" id="email" placeholder=""
-								class="input-xlarge" />
-      </div>
-    </div>
- 	
- 	<div class="control-group">
-      <label class="control-label" for="lastName">Last Name</label>
-      <div class="controls">
-      <form:input path="lastName" id="email" placeholder=""
-								class="input-xlarge" />
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-      <form:password path="password" id="password" placeholder=""
-								class="input-xlarge" />
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <label class="control-label" for="passwordConfirm">Password Confirm</label>
-      <div class="controls">
-      <form:password path="passwordConfirm" id="password" placeholder=""
-								class="input-xlarge" />
-      </div>
-    </div>
- 	
-	<div class="control-group">
-		<h3>Address Info</h3>
-		<div class="control-group">
-	      <label class="control-label" for="shippingAddress.city">City</label>
-	      <div class="controls">
-	      <form:input path="shippingAddress.city" placeholder=""
-									class="input-xlarge" />
-	      </div>
-    </div>
-    <div class="control-group">
-	      <label class="control-label" for="shippingAddress.state">State</label>
-	      <div class="controls">
-	      <form:input path="shippingAddress.state" placeholder=""
-									class="input-xlarge" />
-	      </div>
-    </div>
-    <div class="control-group">
-	      <label class="control-label" for="shippingAddress.zip">Zip</label>
-	      <div class="controls">
-	      <form:input path="shippingAddress.zip" placeholder=""
-									class="input-xlarge" />
-	      </div>
-    </div>
-    
-	</div>	
-	
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button class="btn btn-success">Register</button>
-      </div>
-    </div>
-  </fieldset>
-</form:form>
-</div>
+    <div class="panel panel-primary">
+			<div class="panel-heading">
+						<h3 class="panel-title">Sign Up</h3>
+					</div>
+					<div class="panel-body">
+					<form:form method="POST" commandName="user" class="form-horizontal"
+						role="form">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+								<div class="col-sm-9">
+									<form:input path="email" value="${user.getEmail()}"  />
+								</div>
+								<span><form:errors path="email" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Password</label>
+								<div class="col-sm-9">
+									<form:password path="password" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Confirm Password</label>
+								<div class="col-sm-9">
+									<form:password path="passwordConfirm" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">First Name</label>
+								<div class="col-sm-9">
+									<form:input path="firstName" placeholder="First Name" />
+								</div>
+							</div>
+						 	<div class="form-group">
+								<label class="col-sm-3 control-label">Last Name</label>
+								<div class="col-sm-9">
+									<form:input path="lastName" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">City</label>
+								<div class="col-sm-9">
+									<form:input path="shippingAddress.city" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">State</label>
+								<div class="col-sm-9">
+									<form:input path="shippingAddress.state" placeholder="" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Zip</label>
+								<div class="col-sm-9">
+									<form:input path="shippingAddress.zip" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Zip</label>
+								<div class="col-sm-9">
+									<form:input path="shippingAddress.zip" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="submit" class="btn btn-success">Sign Up</button>
+								</div>
+							</div>
+					
+					</form:form>
+					</div>
+				</div>
+		</div>
     </jsp:body>
 </t:genericpage>

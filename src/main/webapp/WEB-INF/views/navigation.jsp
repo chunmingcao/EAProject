@@ -12,7 +12,7 @@
           <ul class="nav navbar-nav">
             <sec:authorize access="hasRole('ROLE_ADMIN')">
           		<li class="active"><a href="${contextPath}/admin/products">Products</a></li>
-          		<li class="active"><a href="${contextPath}/admin/category">Category</a></li>
+          		<li class="active"><a href="${contextPath}/admin/categories">Category</a></li>
 			</sec:authorize>
 			<sec:authorize access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')">
           		<li><a href="${contextPath}/products">Products</a></li>

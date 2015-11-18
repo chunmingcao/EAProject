@@ -51,7 +51,7 @@ public class CartController {
 	@RequestMapping(value="/cart/mycart", method=RequestMethod.GET)
 	public String viewMyCarts(Model model, Principal principal){
 		User user = userService.getUser(principal.getName());
-		model.addAttribute("carts", cartService.getAll());
+		model.addAttribute("carts", cartService.getCart(user));
 		return "mycart";
 	}
 }

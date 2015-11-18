@@ -15,5 +15,5 @@ public interface CategoryDao extends JpaRepository<Category, Integer>{
 	//public List<Category> findAll();
 	
 	//public void delete(Integer id);
-	
+
 }
