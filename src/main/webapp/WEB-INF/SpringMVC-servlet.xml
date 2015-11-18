@@ -6,26 +6,22 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:sec="http://www.springframework.org/schema/security"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans 
-       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
        http://www.springframework.org/schema/util 
-       http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/util/spring-util-4.2.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
        http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+       http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        http://www.springframework.org/schema/tx 
-       http://www.springframework.org/schema/tx/spring-tx-4.1.xsd 
+       http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
        http://www.springframework.org/schema/data/jpa 
-       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+       http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
        http://www.springframework.org/schema/security
-       http://www.springframework.org/schema/security/spring-security-4.0.xsd
-       http://www.springframework.org/schema/aop 
-       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-      
-	
+       http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
 	<sec:http>
 		<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 		<sec:intercept-url pattern="/cart/*" access="hasRole('ROLE_USER')"/>
@@ -43,8 +39,7 @@
 		</sec:user-service-->
 		<sec:jdbc-user-service data-source-ref="dataSource"
 		users-by-username-query="select email, password, 1 from user where email=?"
-		authorities-by-username-query="select email, role from user where email=?"
-		/>
+		authorities-by-username-query="select email, role from user where email=?"/>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
 	
@@ -97,16 +92,17 @@
 	<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>	
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven/>
+
 	<context:component-scan base-package="edu.mum.ea.shop" />
-	 <aop:aspectj-autoproxy proxy-target-class="true"/>
+
 	<jpa:repositories base-package="edu.mum.ea.shop.dao" />
 	
 	<bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000"/>
     </bean>
-    
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<bean

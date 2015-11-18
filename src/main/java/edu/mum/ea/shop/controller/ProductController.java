@@ -13,6 +13,8 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,11 +27,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import edu.mum.ea.shop.domain.Cart;
-import edu.mum.ea.shop.domain.CartItem;
 import edu.mum.ea.shop.domain.Product;
+import edu.mum.ea.shop.domain.CartItem;
 import edu.mum.ea.shop.domain.Category;
 import edu.mum.ea.shop.service.CategoryService;
 import edu.mum.ea.shop.service.ProductService;
@@ -60,13 +62,13 @@ public class ProductController {
 			return "admin/addproduct";
 		}
 
-	    MultipartFile file = product.getPictureFile();
-	    if(file != null){
-		    String fileName = String.valueOf((new Date()).getTime());
-		    uploadFile(file, fileName);
-		    product.setImage("/resources/img/" + fileName);	    	
-	    }
-	  
+	   MultipartFile file = product.getPictureFile();
+	   if(file != null){
+		   String fileName = String.valueOf((new Date()).getTime());
+		   uploadFile(file, fileName);
+		   product.setImage("/resources/img/" + fileName);	   	
+	   }
+	 
 		productService.save(product);
 		return "redirect:/admin/products";
 	}
@@ -84,21 +86,21 @@ public class ProductController {
 			result.addError(new FieldError("product", "category.id", "Please select category"));
 		}
 		if(result.hasErrors()){
-	    	getCateMap(model);
-	    	return "admin/editproduct";
-	    }
+	   	getCateMap(model);
+	   	return "admin/editproduct";
+	   }
 		
 		MultipartFile file = product.getPictureFile();
-	    
+	   
     	Product oldProduct = productService.get(product.getId());
     	if(file != null && file.getSize() > 0){
-		    String fileName = String.valueOf((new Date()).getTime());
-		    uploadFile(file, fileName);
-		    product.setImage("/resources/img/" + fileName);	
-		    deleteFile(oldProduct.getImage());
-	    }else{
-	    	product.setImage(oldProduct.getImage());
-	    }
+		   String fileName = String.valueOf((new Date()).getTime());
+		   uploadFile(file, fileName);
+		   product.setImage("/resources/img/" + fileName);	
+		   deleteFile(oldProduct.getImage());
+	   }else{
+	   	product.setImage(oldProduct.getImage());
+	   }
 		productService.save(product);
 		return "redirect:/admin/products";
 	}
@@ -121,9 +123,25 @@ public class ProductController {
 		return "admin/products";
 	}
 	
-	@RequestMapping(value={"/products","/"})
-	public String getProducts(Model model){
-		model.addAttribute("products", productService.getAll());
+//	@RequestMapping(value={"/"})
+//	public String getProducts(Model model){
+//		model.addAttribute("products", productService.getAll());
+//		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//       		
+//		for (GrantedAuthority auth : authorities) {
+//            if ("ROLE_ADMIN".equals(auth.getAuthority()))
+//                return "admin/products";
+//        }*/
+//		return "products";
+//	}
+	
+	@RequestMapping(value={"/products", "/"})
+	public String getProductsByPage(@RequestParam(name="pg",defaultValue="0") int pg, Model model/*, Pageable pageable*/){
+		if(pg == 0) pg = 0;
+		Pageable pageable = new PageRequest(pg,2);
+		Page<Product> page = productService.getAll(pageable);
+		model.addAttribute("page", page);
+		
 		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
        		
 		for (GrantedAuthority auth : authorities) {
@@ -134,7 +152,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/product/{id}", method = RequestMethod.GET)
-	public String getProductBy(@ModelAttribute("cartItem") CartItem cartItem,@PathVariable int id, Model model){
+	public String getProduct(@PathVariable int id, @ModelAttribute CartItem cartItem, Model model){
+		System.out.println("****product/****");
 		model.addAttribute("product", productService.get(id));
 		return "product";
 	}
@@ -154,29 +173,29 @@ public class ProductController {
 	}
 	
 	private void uploadFile(MultipartFile file, String fileName){
-	    String uploadPath = context.getRealPath("") + File.separator + "resources/img/";
-	    InputStream inputStream   = null;
-	    OutputStream outputStream = null;
+	   String uploadPath = context.getRealPath("") + File.separator + "resources/img/";
+	   InputStream inputStream   = null;
+	   OutputStream outputStream = null;
 
-	    try {
-	        inputStream = file.getInputStream();
-	        
-	        File newFile = new File(uploadPath + fileName);
-	        System.out.println("uploaded file:" + newFile.getPath());
-	        outputStream = new FileOutputStream(newFile);
-	        int read = 0;
-	        byte[] bytes = new byte[1024];
+	   try {
+	       inputStream = file.getInputStream();
+	       
+	       File newFile = new File(uploadPath + fileName);
+	       System.out.println("uploaded file:" + newFile.getPath());
+	       outputStream = new FileOutputStream(newFile);
+	       int read = 0;
+	       byte[] bytes = new byte[1024];
 
-	        while ((read = inputStream.read(bytes)) != -1) {
-	            outputStream.write(bytes, 0, read);
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }		
+	       while ((read = inputStream.read(bytes)) != -1) {
+	           outputStream.write(bytes, 0, read);
+	       }
+	   } catch (IOException e) {
+	       e.printStackTrace();
+	   }		
 	}
 	
 	private void deleteFile(String fileName){
-	    String filePath = context.getRealPath("") + fileName;
+	   String filePath = context.getRealPath("") + fileName;
 
         File newFile = new File(filePath);
         newFile.delete();

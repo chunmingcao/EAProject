@@ -14,5 +14,4 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 	
 	public List<Product> findProductByCategoryId(int categoryId);
 	
-	//public Page<Product> getAll(Pageable p);
 }
