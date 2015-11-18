@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.ea.shop.domain.Product;
+import edu.mum.ea.shop.domain.CartItem;
 import edu.mum.ea.shop.domain.Category;
 import edu.mum.ea.shop.service.CategoryService;
 import edu.mum.ea.shop.service.ProductService;
@@ -122,19 +123,19 @@ public class ProductController {
 		return "admin/products";
 	}
 	
-	@RequestMapping(value={"/"})
-	public String getProducts(Model model){
-		model.addAttribute("products", productService.getAll());
-		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-       		
-		for (GrantedAuthority auth : authorities) {
-            if ("ROLE_ADMIN".equals(auth.getAuthority()))
-                return "admin/products";
-        }*/
-		return "products";
-	}
+//	@RequestMapping(value={"/"})
+//	public String getProducts(Model model){
+//		model.addAttribute("products", productService.getAll());
+//		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//       		
+//		for (GrantedAuthority auth : authorities) {
+//            if ("ROLE_ADMIN".equals(auth.getAuthority()))
+//                return "admin/products";
+//        }*/
+//		return "products";
+//	}
 	
-	@RequestMapping(value={"/products"})
+	@RequestMapping(value={"/products", "/"})
 	public String getProductsByPage(@RequestParam(name="pg",defaultValue="0") int pg, Model model/*, Pageable pageable*/){
 		if(pg == 0) pg = 0;
 		Pageable pageable = new PageRequest(pg,2);
@@ -151,14 +152,17 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/product/{id}", method = RequestMethod.GET)
-	public String getProduct(@PathVariable int id, Model model){
+	public String getProduct(@PathVariable int id, @ModelAttribute CartItem cartItem, Model model){
+		System.out.println("****product/****");
 		model.addAttribute("product", productService.get(id));
 		return "product";
 	}
 	
 	@RequestMapping(value="/product/category/{catid}", method = RequestMethod.GET)
-	public String getProductByCategory(@PathVariable int catid, Model model){
-		model.addAttribute("products", productService.getByCategoryId(catid));
+	public String getProductByCategory(@PathVariable int catid, @RequestParam(name="pg",defaultValue="0") int pg, Model model){
+		if(pg == 0) pg = 0;
+		Pageable pageable = new PageRequest(pg,2);
+		model.addAttribute("page", productService.getByCategoryId(catid, pageable));
 		return "products";
 	}
 	

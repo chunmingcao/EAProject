@@ -13,5 +13,6 @@ import edu.mum.ea.shop.domain.Product;
 public interface ProductDao extends JpaRepository<Product, Integer>{
 	
 	public List<Product> findProductByCategoryId(int categoryId);
+	public Page<Product> findProductByCategoryId(int categoryId, Pageable p);
 	
 }

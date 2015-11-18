@@ -21,22 +21,18 @@
        http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-
+      	
 	<sec:http>
 		<sec:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 		<sec:intercept-url pattern="/cart/*" access="hasRole('ROLE_USER')"/>
 		<!-- sec:form-login login-page="/signin" login-processing-url="/login" authentication-failure-url="/signin" default-target-url="/index.html"/ -->
-		<sec:form-login />
+		<sec:form-login authentication-failure-url="/login"/>
 		<sec:logout/>
 		<sec:csrf disabled="true"/>
 	</sec:http>
 
 	<sec:authentication-manager>	
 		<sec:authentication-provider>
-		<!--  sec:user-service>
-			<sec:user name="admin" password="123" authorities="ROLE_ADMIN"/>
-			<sec:user name="tom" password = "123" authorities="ROLE_USER"/>
-		</sec:user-service-->
 		<sec:jdbc-user-service data-source-ref="dataSource"
 		users-by-username-query="select email, password, 1 from user where email=?"
 		authorities-by-username-query="select email, role from user where email=?"/>
@@ -50,14 +46,6 @@
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
-	
-	<!-- Hibernate session factory -->
-	<!--  bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		 <property name="packagesToScan" value="edu.mum.ea.shop.domain" />
-		<property name="hibernateProperties" ref="hibernateProperties"/>
-	</bean -->
 	
 	<bean id="hibernateProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -84,10 +72,6 @@
 	
 	<!-- The transaction manager -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	<!--bean id="transactionManager"
-    class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory" />
-	</bean-->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 	<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>	
@@ -95,7 +79,7 @@
 	<mvc:annotation-driven/>
 
 	<context:component-scan base-package="edu.mum.ea.shop" />
-
+	<!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
 	<jpa:repositories base-package="edu.mum.ea.shop.dao" />
 	
 	<bean id="multipartResolver"

@@ -1,61 +1,86 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags/"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
-<!DOCTYPE html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add Product</title>
-</head>
-<body>
-	<form:form commandName="product" action="${contextPath}/admin/editproduct/${id}" enctype="multipart/form-data" method="post">
-	<table>
-		<tr>
-			<td>Name:</td>
-			<td><form:input  path="name"/> </td>
-			<td><form:errors path="name" cssClass="error"/> </td>
-		</tr>		
-		<tr>
-			<td>Category:</td>
-			<td><form:select path="category.id" items="${cateMap}"/> </td>
-			<td><form:errors path="category.id" cssClass="error"/> </td>
-		</tr>
-		<tr>
-			<td>Price:</td>
-			<td><form:input  path="price"/> </td>
-			<td><form:errors path="price" cssClass="error"/> </td>
-		</tr>
-		<tr>
-			<td>Quantity:</td>
-			<td><form:input  path="quantity"/> </td>
-			<td><form:errors path="quantity" cssClass="error"/> </td>
-		</tr>
-		<tr>
-			<td>Picture:</td>
-			<td><input type="file" name="pictureFile"> </td>
-			<td><form:errors path="pictureFile" cssClass="error"/> </td>
-		</tr>
-		<tr>
-			<td></td>
-			<td cols="2">
-			<c:choose>
-			<c:when test="${product.image}!=''">
-				<image src="${contextPath}/${product.image}" width="200"/>
-			</c:when>
-			<c:otherwise>
-				No picture
-			</c:otherwise>
-			</c:choose>
-			</td>
-		</tr>
-		<tr>
-			<td>Description:</td>
-			<td><form:textarea path="description" rows="20" cols="50"/> </td>
-			<td><form:errors path="description" cssClass="error"/> </td>
-		</tr>
-	</table>
-	<input type="submit" value="Edit Product"/>
-	</form:form>
-
-</body>
-</html>
+<t:genericpage>
+	<jsp:attribute name="title">Add Product</jsp:attribute>
+	<jsp:body>
+    <div class="jumbotron">
+    <div class="panel panel-primary">
+			<div class="panel-heading">
+						<h3 class="panel-title">Edit Product</h3>
+					</div>
+					<div class="panel-body">
+					<form:form commandName="product" action="${contextPath}/admin/editproduct/${id}" method="POST" class="form-horizontal"
+						role="form" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Name</label>
+								<div class="col-sm-4">
+								<form:input  path="name"/>
+								</div>
+								<span><form:errors path="name" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Category</label>
+								<div class="col-sm-4">
+								<form:select path="category.id">
+								<form:option value="0">&nbsp;</form:option>
+				     			<form:options items="${cateMap}" />
+				     			</form:select>
+								</div>
+								<span><form:errors path="category.id" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Price</label>
+								<div class="col-sm-4">
+								<form:input  path="price"/>
+								</div>
+								<span><form:errors path="price" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Quantity</label>
+								<div class="col-sm-4">
+								<form:input  path="quantity"/>
+								</div>
+								<span><form:errors path="quantity" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Profile Picture</label>
+								<div class="col-sm-4">
+								<input type="file" name="pictureFile">
+								</div>
+								<span><form:errors path="pictureFile" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label"></label>
+							<div class="col-sm-4">
+							<c:choose>
+								<c:when test="${product.image!=''}">
+								<image src="${contextPath}/${product.image}" width="200"/>
+								</c:when>
+								<c:otherwise>
+									No picture
+								</c:otherwise>
+							</c:choose>
+							</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Description</label>
+								<div class="col-sm-4">
+								<form:textarea  path="description" cols="40" rows="10"/>
+								</div>
+								<span><form:errors path="description" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="submit" class="btn btn-success">Save</button>
+								</div>
+							</div>
+					
+					</form:form>
+					</div>
+				</div>
+		</div>
+    </jsp:body>
+</t:genericpage>
