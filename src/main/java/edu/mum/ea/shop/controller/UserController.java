@@ -26,6 +26,7 @@ public class UserController {
 		if(result.hasErrors()){
 			return "signup";
 		}
+		user.setRole("ROLE_USER");
 		userService.addUser(user);
 		return "redirect:signin";
 	}

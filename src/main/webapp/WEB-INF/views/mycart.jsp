@@ -18,27 +18,26 @@
                 <th>QTY</th>
                 <th>Total Price</th>
             </tr>
-            <c:forEach var="cart" items="${carts}">
+            <c:forEach var="item" items="${cart.cartItems}">
             
 			<tr>
-                <td>${cart.product.name}</td>
-                <td>${cart.product.price}</td>
-                <td>${cart.quantity} <a href="#">X</a></td>
-                <td>${cart.getTotal()}</td>
+                <td>${item.product.name}</td>
+                <td>${item.product.price}</td>
+                <td>${item.quantity} <a href="#">X</a></td>
+                <td>${item.getTotal()}</td>
                 <td class="col-sm-1 col-md-1"> 
-	                <button type="button" class="btn btn-danger"> <span class="glyphicon glyphicon-remove">
-	                </span> Remove </button>
-				</td>
+                <form:form commandName="cartItem" method="POST" action="${contextPath}/cart/removeitem/${item.id}">
+					<button type="submit" class="btn btn-danger"> <span
+																	class="glyphicon glyphicon-remove">
+					                Remove</span>
+															</button>
+				</form:form>
+	           </td>
             </tr>
 			</c:forEach>
-            
-            <tr>
-                <th colspan="3"><span class="pull-right">Sub Total</span></th>
-                <th>£250.00</th>
-            </tr>
             <tr>
                 <th colspan="3"><span class="pull-right">Total</span></th>
-                <th>£300.00</th>
+                <th>${cart.getTotal()}</th>
             </tr>
             <tr>
                 <td><a href="#" class="btn btn-primary">Continue Shopping</a></td>
