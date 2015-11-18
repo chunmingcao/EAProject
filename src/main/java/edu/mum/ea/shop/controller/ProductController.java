@@ -13,6 +13,8 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.ea.shop.domain.Product;
@@ -119,7 +122,7 @@ public class ProductController {
 		return "admin/products";
 	}
 	
-	@RequestMapping(value={"/products","/"})
+	@RequestMapping(value={"/"})
 	public String getProducts(Model model){
 		model.addAttribute("products", productService.getAll());
 		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
@@ -131,8 +134,24 @@ public class ProductController {
 		return "products";
 	}
 	
+	@RequestMapping(value={"/products"})
+	public String getProductsByPage(@RequestParam(name="pg",defaultValue="0") int pg, Model model/*, Pageable pageable*/){
+		if(pg == 0) pg = 0;
+		Pageable pageable = new PageRequest(pg,2);
+		Page<Product> page = productService.getAll(pageable);
+		model.addAttribute("page", page);
+		
+		/*Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+       		
+		for (GrantedAuthority auth : authorities) {
+            if ("ROLE_ADMIN".equals(auth.getAuthority()))
+                return "admin/products";
+        }*/
+		return "products";
+	}
+	
 	@RequestMapping(value="/product/{id}", method = RequestMethod.GET)
-	public String getProductBy(@PathVariable int id, Model model){
+	public String getProduct(@PathVariable int id, Model model){
 		model.addAttribute("product", productService.get(id));
 		return "product";
 	}

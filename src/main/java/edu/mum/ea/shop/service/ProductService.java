@@ -37,7 +37,7 @@ public class ProductService {
 		return productDao.findAll();
 	}
 	
-	/*public Page<Product> getAll(Pageable p){
-		return productDao.getAll(p);
-	}*/
+	public Page<Product> getAll(Pageable p){
+		return productDao.findAll(p);
+	}
 }

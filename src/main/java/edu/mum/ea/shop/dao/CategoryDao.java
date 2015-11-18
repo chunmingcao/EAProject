@@ -9,11 +9,5 @@ import edu.mum.ea.shop.domain.Category;
 
 @Repository
 public interface CategoryDao extends JpaRepository<Category, Integer>{
-	
-	//public Category save(Category cate);
-	
-	//public List<Category> findAll();
-	
-	//public void delete(Integer id);
 
 }
