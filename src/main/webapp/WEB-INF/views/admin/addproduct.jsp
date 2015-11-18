@@ -13,8 +13,7 @@
 					</div>
 					<div class="panel-body">
 					<form:form commandName="product" action="addproduct" method="POST" class="form-horizontal"
-						role="form">
-						<form class="form-horizontal" role="form">
+						role="form" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-3 control-label">Name</label>
 								<div class="col-sm-9">

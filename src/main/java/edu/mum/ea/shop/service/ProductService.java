@@ -3,6 +3,8 @@ package edu.mum.ea.shop.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import edu.mum.ea.shop.dao.ProductDao;
@@ -35,4 +37,7 @@ public class ProductService {
 		return productDao.findAll();
 	}
 	
+	/*public Page<Product> getAll(Pageable p){
+		return productDao.getAll(p);
+	}*/
 }

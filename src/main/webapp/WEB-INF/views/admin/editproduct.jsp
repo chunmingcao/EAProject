@@ -13,8 +13,7 @@
 					</div>
 					<div class="panel-body">
 					<form:form commandName="product" action="${contextPath}/admin/editproduct/${id}" method="POST" class="form-horizontal"
-						role="form">
-						<form class="form-horizontal" role="form">
+						role="form" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-3 control-label">Name</label>
 								<div class="col-sm-9">
@@ -51,8 +50,17 @@
 								<div class="col-sm-9">
 								<input type="file" name="pictureFile">
 								</div>
-								<image src="${contextPath}/${product.image}" width="200"/>
 								<span><form:errors path="pictureFile" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+							<c:choose>
+								<c:when test="${product.image}!=''">
+								<image src="${contextPath}/${product.image}" width="200"/>
+								</c:when>
+								<c:otherwise>
+									No picture
+								</c:otherwise>
+							</c:choose>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">

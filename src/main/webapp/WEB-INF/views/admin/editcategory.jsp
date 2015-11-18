@@ -9,10 +9,10 @@
     <div class="jumbotron">
     <div class="panel panel-primary">
 			<div class="panel-heading">
-						<h3 class="panel-title">Add Category</h3>
+						<h3 class="panel-title">Edit Category</h3>
 					</div>
 					<div class="panel-body">
-					<form:form commandName="category" action="addcategory" method="POST" class="form-horizontal"
+					<form:form commandName="category" action="${contextPath}/admin/editcategory/${id}" method="POST" class="form-horizontal"
 						role="form">
 						<form class="form-horizontal" role="form">
 							<div class="form-group">
