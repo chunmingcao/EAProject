@@ -63,6 +63,13 @@
 							</c:choose>
 							</div>
 							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Description</label>
+								<div class="col-sm-9">
+								<form:textarea  path="description"/>
+								</div>
+								<span><form:errors path="category" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<button type="submit" class="btn btn-success">Save</button>
 								</div>

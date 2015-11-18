@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags/"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <t:genericpage>
 	<jsp:attribute name="title">Add Product</jsp:attribute>
@@ -51,6 +51,13 @@
 								<input type="file" name="pictureFile">
 								</div>
 								<span><form:errors path="pictureFile" cssClass="alert-danger" /></span>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-3 control-label">Description</label>
+								<div class="col-sm-9">
+								<form:textarea  path="description"/>
+								</div>
+								<span><form:errors path="category" cssClass="alert-danger" /></span>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
