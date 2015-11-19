@@ -10,8 +10,7 @@ public class Address {
 	private String state;
 	private String zip;
 	
-	public Address(){
-		
+	public Address(){		
 	}
 	
 	public String getCity() {
